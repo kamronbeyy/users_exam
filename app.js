@@ -2,6 +2,7 @@ const elList = document.querySelector('#list');
 const elList1 = document.querySelector('#list1');
 const elList2 = document.querySelector('#list2');
 const elTemplate = document.querySelector('#template').content;
+const btn = document.querySelector('#btn');
 
 
 function renderUser(userArr, element){
@@ -14,7 +15,7 @@ function renderUser(userArr, element){
         cloneTemplate.querySelector('.email-text').textContent = elem.email;
         cloneTemplate.querySelector('.phone-text').textContent = elem.phone;
         cloneTemplate.querySelector('.name').textContent = elem.username;
-        cloneTemplate.querySelector('.web-text').textContent = elem.website;
+        cloneTemplate.querySelector('.web-text').textContent = elem.website;   
         
         element.appendChild(cloneTemplate);
     });
@@ -25,15 +26,14 @@ async function fetchUsers(){
    try{
     const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
     const data = await response.json();
-    console.log(data);
     renderUser(data, elList);
    }catch(e){
-       alert(`Message:${e.message}`);
+       alert(`Error message:${e.message}`);
    }
 }
 fetchUsers()
 
-elList.addEventListener('click', e =>{
+elList .addEventListener('click', e =>{
     elList1.innerHTML = null;
     if(e.target.matches('.list-item')){
         let {uuid} = e.target.dataset;
